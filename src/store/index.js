@@ -1,44 +1,41 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {
-    buttons: [
-      [
-        { filled: true, type: 'flower' },
-        { filled: false, type: '' },
-        { filled: true, type: 'cactus' },
-        { filled: false, type: '' },
-      ],
-      [
-        { filled: false, type: '' },
-        { filled: true, type: 'bush' },
-        { filled: false, type: '' },
-        { filled: true, type: 'tree' },
-      ],
-      [
-        { filled: false, type: '' },
-        { filled: false, type: '' },
-        { filled: false, type: '' },
-        { filled: true, type: 'tree' },
-      ],
-      [
-        { filled: false, type: '' },
-        { filled: false, type: '' },
-        { filled: false, type: '' },
-        { filled: true, type: '' },
+export default createStore({
+  state() {
+    return {
+      coins: 0, // account of user of coins for buy features and skins in app shop 
+      fields: [
+        
+          { type: 'flower' },
+          { type: 'empty' },
+          { type: 'cactus' },
+          { type: 'empty' },
+          { type: 'bush' },
+          { type: 'bush' },
+          { type: 'flower' },
+          { type: 'tree' },
+          { type: 'flower' },
+          { type: 'empty' },
+          { type: 'cactus' },
+          { type: 'empty' },
+          { type: 'empty' },
+          { type: 'empty' },
+          { type: 'empty' },
+          { type: 'empty' }
+        
       ]
-    ]
+    };
   },
   mutations: {
-    editButton(state, { rowIndex, buttonIndex, filled, type }) {
-      state.buttons[rowIndex][buttonIndex] = {filled: filled, type: type};
+    resetField(state, { fieldIndex }) {
+      state.fields[fieldIndex] = { type: 'empty' };
     },
-    resetButton(state, { rowIndex, buttonIndex }) {
-        state.buttons[rowIndex][buttonIndex] = {filled: false, type: '' };
-    }
+    editField(state, { fieldIndex, type }) {
+      state.fields[fieldIndex] = { type };
+    },
+    // sellPlant(state, { rowIndex, fieldIndex,  type }) { 
+    //     // future functionality for sell plants grown by the user
+    // }
   },
   actions: {},
   modules: {}

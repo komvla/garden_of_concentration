@@ -1,24 +1,32 @@
 <template>
-  <button col lg="4" :class="buttonClasses">{{ buttonText }}</button>
+  <button :class="buttonClasses"><img :src="imageSrc" :alt="buttonText"></button>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   props: {
     type: {
       type: String,
       default: 'empty'
+    },
+    idx: {
+      type: Number,
+      default: 0
     }
   },
   setup(props) {
-    const buttonText = props.type !== 'empty' ? props.type : 'empty';
-    const buttonClasses = [
+    const buttonText = computed(() => props.type !== 'empty' ? props.type : 'pot');
+    const imageSrc = computed(() => props.type !== 'empty' ? require(`@/assets/${props.type}.png`) : require('@/assets/pot.png'));
+    const buttonClasses = computed(() => [
       props.type !== 'empty' ? 'filled' : 'empty',
       props.idx % 5 === 0 ? 'break' : '',
-    ];
-    return { buttonClasses, buttonText };
+      'rounded-full',
+      'flex-col',
+      'p-4', 'flex', 'justify-center',
+    ]);
+    return { buttonClasses, buttonText, imageSrc };
   }
 });
 
@@ -26,12 +34,15 @@ export default defineComponent({
 
 <style scoped>
 button {
-  height: 10vw;
-  width: 10vw;
-  border-radius: 50rem;
-  margin: 3rem;
+  height: 8rem;
+  width: 8rem;
   border: none;
+  align-items: center;
   cursor: pointer;
+}
+
+label {
+    cursor: pointer;
 }
 
 .empty {
@@ -41,9 +52,4 @@ button {
 .filled {
     background: #426d26;
 }
-
-.break {
-    flex-basis: 100%;
-}
-
 </style>

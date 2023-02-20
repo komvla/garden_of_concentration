@@ -1,9 +1,11 @@
 <template>
-  <button :class="buttonClasses"><img :src="imageSrc" :alt="buttonText"></button>
+  <button @click="deletePlant" :class="buttonClasses"><img :src="imageSrc" :alt="buttonText"></button>
 </template>
 
 <script>
 import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
+
 
 export default defineComponent({
   props: {
@@ -17,6 +19,8 @@ export default defineComponent({
     }
   },
   setup(props) {
+
+    const store = useStore();
     const buttonText = computed(() => props.type !== 'empty' ? props.type : 'pot');
     const imageSrc = computed(() => props.type !== 'empty' ? require(`@/assets/${props.type}.png`) : require('@/assets/pot.png'));
     const buttonClasses = computed(() => [
@@ -26,7 +30,12 @@ export default defineComponent({
       'flex-col',
       'p-4', 'flex', 'justify-center',
     ]);
-    return { buttonClasses, buttonText, imageSrc };
+
+    const deletePlant = () => {
+      store.commit('resetField', {fieldIndex : props.idx-1});
+    }
+
+    return { buttonClasses, buttonText, imageSrc, deletePlant };
   }
 });
 

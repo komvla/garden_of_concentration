@@ -23,8 +23,8 @@ export default createStore({
           { type: 'empty' }
       ],
       typesPlants : [
-        { name: 'Flower', type: 'flower', growingTime : 10, price : 10 },
-        { name: 'Bush', type: 'bush', growingTime : 60, price : 60 },
+        { name: 'Flower', type: 'flower', growingTime : 5, price : 10 },
+        { name: 'Bush', type: 'bush', growingTime : 10, price : 60 },
         { name: 'Cactus', type: 'cactus', growingTime : 3600, price : 360 },
         { name: 'Big Plant',  type: 'tree', growingTime : 3600*4, price : 360*4  },
       ]
